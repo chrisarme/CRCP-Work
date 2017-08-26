@@ -144,7 +144,7 @@ rect(438, 218, 220, 28);
 
 // Pink left curve
 
-int piLeRad1 = 204;
+int piLeRad1 = 203;
 int piLeRad2 = 217;
 noFill();
 stroke(pinkColor);
@@ -211,7 +211,7 @@ fill(pinkColor);
 rect(604, 274, 28, 134);
 
 // pink bottom curves
-int piBRad1 = 53;
+int piBRad1 = 52;
 int piBRad2 = 67;
 noFill();
 stroke(pinkColor);
@@ -237,6 +237,53 @@ arc(548, 300, 255, 255, radians(rLeRad1), radians(rLeRad2));
 noStroke();
 fill(blueColor);
 rect(466, 274, 26, 112);
+
+// small horz grey rectangle
+noStroke();
+fill(greyColor);
+rect(520, 386, 84, 28);
+
+// very small horz purple rectangle
+noStroke();
+fill(purpleColor);
+rect(632, 358, 23, 28);
+
+// purple small right curve
+int pSRiRad1 = 25;
+int pSRiRad2 = 39;
+noFill();
+stroke(purpleColor);
+strokeWeight(20);
+
+arc(548, 300, 255, 255, radians(pSRiRad1), radians(pSRiRad2));
+
+// vert yellow rectangle
+noStroke();
+fill(yellowColor);
+rect(632, 274, 28, 84);
+
+// Background cover
+noStroke();
+fill(backGroundColor);
+
+rect(466, 218, 26, 56);
+
+rect(466, 386, 26, 56);
+
+rect(410, 246, 28, 84);
+
+rect(520, 162, 56, 28);
+
+rect(520, 414, 84, 28);
+
+rect(576, 358, 56, 28);
+
+rect(466, 330, 54, 28);
+
+rect(660, 274, 28, 84);
+
+rect(604, 218, 28, 56);
+
 
 
 // Third area (bottom left)
