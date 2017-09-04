@@ -18,9 +18,17 @@ int triangleYSpeed = int(random(-5, -1));
 float triangleRotation = 0;
 color triangleColor = color(int(random(0, 255)),int(random(0, 255)),int(random(0, 255)));
 
+int pieXPos = 200;
+int pieYPos = 400;
+int pieXSpeed = int(random(-5, -1));
+int pieYSpeed = int(random(-5, -1));
+float pieRotation = 0;
+color pieColor = color(int(random(0, 255)),int(random(0, 255)),int(random(0, 255)));
+
 
 void setup()
 {
+  frame.setResizable(true);
   size(700, 700);
   background(100, 100, 100);
   strokeWeight(.25);
@@ -28,6 +36,11 @@ void setup()
 
 void draw()
 { 
+  // Fun frameSize change (every second)
+  //if (frameCount % 60 == 0){
+  //frame.setSize(int(random(500, 700)), int(random(500, 700)));
+  //}
+  
   pushMatrix();
   fill(squareColor);
   translate(squareXPos, squareYPos);
@@ -45,6 +58,14 @@ void draw()
   rotate(triangleRotation);
   triangle(0, -25, -25, 25, 25, 25);
   popMatrix();
+  
+  pushMatrix();
+  fill(pieColor);
+  translate(pieXPos, pieYPos);
+  rotate(pieRotation);
+  arc(0, 0, 80, 80, 0, PI + HALF_PI * 1.25, PIE);
+  popMatrix();
+  
   
   if (squareXPos + 25 >= width || squareXPos - 25 <= 0)
   {
@@ -76,39 +97,60 @@ void draw()
     triangleYSpeed = triangleYSpeed * -1;
   }
   
-  // Check for intersection
+  if (pieXPos + 40 >= width || pieXPos - 40 <= 0)
+  {
+    pieXSpeed = pieXSpeed * -1;  
+  }
   
+  if (pieYPos + 40 >= height || pieYPos - 40 <= 0)
+  {
+    pieYSpeed = pieYSpeed * -1;
+  }
+  
+  // Check for intersection
+  // circle and square
   if (dist(squareXPos, squareYPos, circleXPos, circleYPos) <= 75)
   {
-    circleXSpeed = circleXSpeed * -1;
+    /*println(squareYPos - circleYPos);
+    if (((squareYPos - circleYPos) > 50) || ((circleYPos - squareYPos) > 50))
+    {
+      circleYPos = circleYPos * -1;
+      
+      squareYPos = squareYPos * -1;
+    }*/
+    
+    //if (((squareXPos - circleXPos) > 50) || ((circleXPos - squareXPos) > 50))
+    //{
+      circleXSpeed = circleXSpeed * -1;
+    
+      squareXSpeed = squareXSpeed * -1;
+    //}
+  }
+  
+  // circle and pie
+  if (dist(pieXPos, pieYPos, circleXPos, circleYPos) <= 75)
+  {
+    /*if (((pieYPos - circleYPos) > 50) || ((circleYPos - pieYPos) > 50))
+    {
+      circleYPos = circleYPos * -1;
+      
+      pieYPos = pieYPos * -1;
+    }
+    else
+    {*/
+      circleXSpeed = circleXSpeed * -1;
+    
+      pieXSpeed = pieXSpeed * -1;
+    //}
+  }
+  
+  // pie and square
+  if (dist(squareXPos, squareYPos, pieXPos, pieYPos) <= 75)
+  {
+    pieXSpeed = pieXSpeed * -1;
     
     squareXSpeed = squareXSpeed * -1;
   }
-  
- /* for (int y = 50; y > 30; y -= 1)
-  {
-    if ((circleYPos + y == triangleYPos) || (circleYPos - y == triangleYPos))
-      {
-      for (int x = 50; x > 0; x -= 1)
-      {
-        if ((circleXPos + x == triangleXPos) || (circleXPos + x == triangleXPos))
-        {
-          triangleXPos = 0;
-        }
-      }
-    }
-  }*/
-  
-  
-  /*if (((triangleXPos + 25 == squareXPos) || (triangleXPos - 25 == squareXPos)) && ((triangleYPos - 25 == squareYPos + 50) || (triangleYPos + 25 == squareYPos)))
-  {
-    triangleXPos = 0;
-  }
-  
-  if (((triangleXPos + 25 == circleXPos - 50) || (triangleXPos - 25 == circleXPos + 50)))
-  {
-    triangleXPos = 0;
-  }*/
   
   squareXPos += squareXSpeed;
   squareYPos += squareYSpeed;
@@ -121,4 +163,43 @@ void draw()
   triangleYPos += triangleYSpeed;
   triangleRotation += .1;
   
+  pieXPos += pieXSpeed;
+  pieYPos += pieYSpeed;
+  pieRotation += .05;
+  
+}
+
+void keyPressed()
+{
+  // switch positions with each other
+  
+  int switchNumber = int(random(0));
+  int tempXPos;
+  int tempYPos;
+  
+  switch (switchNumber)
+  {
+    case(0): 
+    {
+      //trianglePos old
+      tempXPos = triangleXPos;
+      tempYPos = triangleYPos;
+      
+      //new trianglePos
+      triangleXPos = circleXPos;
+      triangleYPos = circleXPos;
+      
+      //new circlePos
+      circleXPos = squareXPos;
+      circleYPos = squareYPos;
+      
+      //new squarePos
+      squareXPos = pieXPos;
+      squareYPos = pieXPos;
+      
+      //new piePos
+      pieXPos = tempXPos;
+      pieYPos = tempYPos;
+    }
+  }
 }
