@@ -28,7 +28,7 @@ color pieColor = color(int(random(0, 255)),int(random(0, 255)),int(random(0, 255
 
 void setup()
 {
-  frame.setResizable(true);
+  //surface.setResizable(true);
   size(700, 700);
   background(100, 100, 100);
   strokeWeight(.25);
@@ -38,7 +38,7 @@ void draw()
 { 
   // Fun frameSize change (every second)
   //if (frameCount % 60 == 0){
-  //frame.setSize(int(random(500, 700)), int(random(500, 700)));
+  //surface.setSize(int(random(500, 700)), int(random(500, 700)));
   //}
   
   pushMatrix();
