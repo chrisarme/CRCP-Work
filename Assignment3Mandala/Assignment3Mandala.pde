@@ -8,10 +8,15 @@ int fatStarRad2p5 = 125;
 int fatStarRad3 = 175;
 int crclRingRad1 = 150;
 int crclRingRadBG;
-int ovalLayerRad1 = 175;
+int petalLayerRad1 = 100;
+int petalLayerRad1p25 = 160;
+int petalLayerRad1p75 = 220;
+int petalLayerRad2 = 280;
 int diamondRing1Rad1 = 190;
 int diamondRing1Rad1p5 = 205;
 int diamondRing1Rad2 = 220;
+int starRad1 = 15;
+int starRad2 = 35;
 
 // angles / positions
 float ang1 = 0;
@@ -19,8 +24,9 @@ float ang2 = 0;
 float fatStarAng2 = 30;
 float crclPos1 = 0;
 float crclPosBG = 15;
-float ovalLayerPos = 0;
+float petalLayerPos = 0;
 float diamondRingPos = 0;
+float starPos1 = 0;
 
 // speeds
 float rotSpdFatStar1 = 1;
@@ -29,7 +35,8 @@ float rotSpdCircles1 = -2.5;
 float bgRotSpd = .1;
 float rotSpdFatStar2 = 1;
 float diamondRingRotSpd = 3;
-float ovalLayerRotSpd = 1;
+float petalLayerRotSpd = -1;
+float starRotSpd = 2;
 
 // random silly color test
 int colorRed = 200;
@@ -59,7 +66,7 @@ void draw()
   circleRingBG();
   
   fill(150, 255, 0);
-  ovalLayer1();
+  petalLayer1();
   
   fill(150, 100, 200);
   circleLayer1();
@@ -88,6 +95,9 @@ void draw()
   fill(0, 200, 150);
   diamondRing1();
   
+  fill(200, 0, 0);
+  starShape1();
+  
 
   // updateAngles();
   ang1 = ang1 + rotSpdFatStar1;
@@ -95,8 +105,9 @@ void draw()
   crclPos1 = crclPos1 + rotSpdCircles1;
   crclPosBG = crclPosBG + bgRotSpd;
   fatStarAng2 = fatStarAng2 + rotSpdFatStar2;
-  ovalLayerPos = ovalLayerPos + ovalLayerRotSpd;
+  petalLayerPos = petalLayerPos + petalLayerRotSpd;
   diamondRingPos = diamondRingPos + diamondRingRotSpd;
+  starPos1 = starPos1 + starRotSpd;
 }
 
 void drawFatStarShape1()
@@ -180,11 +191,29 @@ void circleLayer1()
   }
 }
 
-void ovalLayer1()
+void petalLayer1()
 {
-  for (int i = 0; i < 6; i++)
+  for (int i = 0; i < 38; i++)
   {
-    ellipse(cos(radians(ovalLayerPos + (60 * i))) * ovalLayerRad1, sin(radians(ovalLayerPos + (60 * i))) * ovalLayerRad1, 150, 150);
+  beginShape();
+  
+    float petalX, petalY;
+  
+    petalX = cos(radians(petalLayerPos + (10 * i))) * petalLayerRad1;
+    petalY = sin(radians(petalLayerPos + (10 * i))) * petalLayerRad1;
+  
+    vertex(petalX, petalY);
+    bezierVertex(cos(radians(petalLayerPos + (10 * i + 10))) * petalLayerRad1p25, sin(radians(petalLayerPos + (10 * i + 10))) * petalLayerRad1p25,
+      cos(radians(petalLayerPos + (10 * i + 10))) * petalLayerRad1p75, sin(radians(petalLayerPos + (10 * i + 10))) * petalLayerRad1p75,
+      cos(radians(petalLayerPos + (10 * i))) * petalLayerRad2, sin(radians(petalLayerPos + (10 * i))) * petalLayerRad2);
+  
+    vertex(cos(radians(petalLayerPos + (10 * i))) * petalLayerRad2, sin(radians(petalLayerPos + (10 * i))) * petalLayerRad2);
+    bezierVertex(cos(radians(petalLayerPos + (10 * i - 10))) * petalLayerRad1p75, sin(radians(petalLayerPos + (10 * i - 10))) * petalLayerRad1p75,
+      cos(radians(petalLayerPos + (10 * i - 10))) * petalLayerRad1p25, sin(radians(petalLayerPos + (10 * i - 10))) * petalLayerRad1p25,
+      cos(radians(petalLayerPos + (10 * i))) * petalLayerRad1, sin(radians(petalLayerPos + (10 * i))) * petalLayerRad1);
+    
+  endShape();
+  
   }
 }
 
@@ -192,8 +221,6 @@ void diamondRing1()
 {
   for (int i = 0; i < 12; i++)
   {
-    if (1 == 1)
-    {
       beginShape();
       
       vertex(cos(radians(diamondRingPos + (30 * i))) * diamondRing1Rad1, sin(radians(diamondRingPos + (30 * i))) * diamondRing1Rad1);
@@ -202,6 +229,24 @@ void diamondRing1()
       vertex(cos(radians(diamondRingPos + (30 * i - 1))) * diamondRing1Rad1p5, sin(radians(diamondRingPos + (30 * i - 1))) * diamondRing1Rad1p5);
        
       endShape(CLOSE);
-    }
   }
+}
+
+void starShape1()
+{
+  beginShape();
+  
+  for (int i = 0; i < 10; i++)
+  {
+   if (i % 2 == 0)
+   {
+     vertex(cos(radians(starPos1 + (36 * i))) * starRad2, sin(radians(starPos1 + (36 * i))) * starRad2);
+   }
+   else
+   {
+     vertex(cos(radians(starPos1 + (36 * i))) * starRad1, sin(radians(starPos1 + (36 * i))) * starRad1);
+   }
+  }
+  
+  endShape();
 }
