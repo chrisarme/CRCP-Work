@@ -6,7 +6,7 @@
 int particleAmount = 50;
 boolean start = true;
 boolean[] particleShrinking = new boolean[particleAmount];
-float magnetism = -2.0f;
+float magnetism = -2.0;
 
 float[] particleX = new float[particleAmount];
 float[] particleY = new float[particleAmount];
