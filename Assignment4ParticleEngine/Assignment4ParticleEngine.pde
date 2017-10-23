@@ -94,9 +94,7 @@ void drawAndMoveParticle(int element)
   {
     particleYSpeed[element] = particleYSpeed[element] + gravity;
   }
-  
-  pushParticlesAway(element);
-  
+
   particleX[element] = particleX[element] + xSpeed;
   particleY[element] = particleY[element] + ySpeed;
   
@@ -190,22 +188,9 @@ void changeColor(int element)
 
 void changeBackgroundColor()
 {
-  float R = 128+((sin((colorNumber*.8+0)*1.3)*128));
-  float G = 128+((sin((colorNumber*.8+1)*1.3)*128));
-  float B = 128+((sin((colorNumber*.8+2)*1.3)*128));
+  float R = 100+((sin((colorNumber*.8+0)*1.3)*128));
+  float G = 100+((sin((colorNumber*.8+1)*1.3)*128));
+  float B = 100+((sin((colorNumber*.8+2)*1.3)*128));
   
   background(R, G, B);
-}
-
-void pushParticlesAway(int element)
-{
-  if (particleX[element] + particleSize[element] < mouseX)
-  {
-    particleX[element] = particleX[element] - ((width - (mouseX + particleX[element])) / 10);
-  }
-  else if (particleX[element] > mouseX)
-  {
-    particleX[element] = particleX[element] + ((width - (mouseX + particleX[element])) / 10);
-  }
-    //particleX[element] = particleX[element] + mouseX;
 }
