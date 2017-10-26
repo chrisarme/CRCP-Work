@@ -4,7 +4,7 @@
 
 boolean isShiftDown = false;
 boolean shouldDisplayHelp = false;
-PImage solaire;
+PImage imageOfChoice;
 int displayedEffectMultiplier = 1;
 float actualEffectMultiplier;
 
@@ -24,7 +24,7 @@ void draw()
 {
   actualEffectMultiplier = (displayedEffectMultiplier / 10);
   
-  image(solaire, 0 , 0);
+  image(imageOfChoice, 0 , 0);
   
   text(str(displayedEffectMultiplier), 20, 30);
   text("?", 575, 30);
@@ -118,30 +118,27 @@ void mousePressed()
 //A comment has been added that, when uncommented, load the image from the web and allow the program to be run anywhere as long as there is an internet connection.
 void createOriginalImage()
 {
-  //solaire = loadImage("http://darksouls.wdfiles.com/local--files/npcs/solaire-of-astora-large.jpg");
-  solaire = loadImage("images/solaire-of-astora-large.jpg");
-  image(solaire, 0 , 0);
+  //imageOfChoice = loadImage("http://darksouls.wdfiles.com/local--files/npcs/solaire-of-astora-large.jpg");
+  imageOfChoice = loadImage("images/solaire-of-astora-large.jpg");
+  image(imageOfChoice, 0 , 0);
 }
 
 // This blurs the image depending on the effect multiplier
 void blurImage()
 {
-  solaire.filter(BLUR, (actualEffectMultiplier));
-  image(solaire, 0 , 0);
+  imageOfChoice.filter(BLUR, (actualEffectMultiplier));
 }
 
 // This grayscales the image
 void grayImage()
 {
-  solaire.filter(GRAY);
-  image(solaire, 0 , 0);
+  imageOfChoice.filter(GRAY);
 }
 
 // This dilates the image, which appears to increase the size of certain chunks of pixels
 void dilateImage()
 {
-  solaire.filter(DILATE);
-  image(solaire, 0 , 0);
+  imageOfChoice.filter(DILATE);
 }
 
 // This is a self-made function that will switch 2 random 50x50 chunks of pixels
@@ -154,13 +151,13 @@ void switchBlocks()
   int randomXPosition2 = int(random(0, width - 50));
   int randomYPosition2 = int(random(0, height - 50));
   
-  solaire.loadPixels();
+  imageOfChoice.loadPixels();
   
   for (int i = 0; i < 50; i++)
   {
     for (int j = 0; j < 50; j++)
     {
-      tempPixels1[i][j] = solaire.pixels[(j + randomYPosition1) * solaire.width + (i + randomXPosition1)];
+      tempPixels1[i][j] = imageOfChoice.pixels[(j + randomYPosition1) * imageOfChoice.width + (i + randomXPosition1)];
     }
   }
   
@@ -168,7 +165,7 @@ void switchBlocks()
   {
     for (int j = 0; j < 50; j++)
     {
-      tempPixels2[i][j] = solaire.pixels[(j + randomYPosition2) * solaire.width + (i + randomXPosition2)];
+      tempPixels2[i][j] = imageOfChoice.pixels[(j + randomYPosition2) * imageOfChoice.width + (i + randomXPosition2)];
     }
   }
   
@@ -178,7 +175,7 @@ void switchBlocks()
   {
     for (int j = 0; j < 50; j++)
     {
-      solaire.pixels[(j + randomYPosition1) * solaire.width + (i + randomXPosition1)] = tempPixels2[i][j];
+      imageOfChoice.pixels[(j + randomYPosition1) * imageOfChoice.width + (i + randomXPosition1)] = tempPixels2[i][j];
     }
   }
   
@@ -186,31 +183,31 @@ void switchBlocks()
   {
     for (int j = 0; j < 50; j++)
     {
-      solaire.pixels[(j + randomYPosition2) * solaire.width + (i + randomXPosition2)] = tempPixels1[i][j];
+      imageOfChoice.pixels[(j + randomYPosition2) * imageOfChoice.width + (i + randomXPosition2)] = tempPixels1[i][j];
     }
   }
   
-  solaire.updatePixels();
+  imageOfChoice.updatePixels();
 }
 
 // This is a self-made function that will add some red to the current image. Odd things happen when the red overflows
 void addRedColor()
 {
-  solaire.loadPixels();
+  imageOfChoice.loadPixels();
   
-  for (int i = 0; i < solaire.pixels.length; i++)
+  for (int i = 0; i < imageOfChoice.pixels.length; i++)
   {
-    color tempColor = solaire.pixels[i];
+    color tempColor = imageOfChoice.pixels[i];
     color filter = color(23, 0 ,0);
     
     
     tempColor = tempColor + filter;
     
     
-    solaire.pixels[i] = tempColor;
+    imageOfChoice.pixels[i] = tempColor;
   }
   
-  solaire.updatePixels();
+  imageOfChoice.updatePixels();
 }
 
 // This checks if the help needs to be displays and, if it is necessary, does so.
