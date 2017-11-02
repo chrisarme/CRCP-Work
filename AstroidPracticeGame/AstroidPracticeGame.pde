@@ -6,6 +6,7 @@ float playerRotation = 0;
 float friction = .9;
 
 Ship player;
+Rocks rock;
 
 boolean[] areKeysDown = new boolean[4];
 
@@ -18,16 +19,34 @@ void setup()
 {
   size(1000, 600);
   rectMode(CENTER);
+  smooth();
   //noStroke();
   
   player = new Ship();
+  rock = new Rocks();
 }
 
 void draw()
 {
   background(color(150));
   
+  fill(255);
   player.masterShipFunction();
+  checkBulletRockCollision();
+  fill(100);
+  rock.drawRocks();
+}
+
+void checkBulletRockCollision()
+{
+  for (int i = 0; i < player.bullets.size(); i++)
+  {
+    if (dist(player.bullets.get(i).bulletXPosition, player.bullets.get(i).bulletYPosition, rock.rockXPosition, rock.rockYPosition) <= rock.rockSize / 2)
+    {
+      rock = new Rocks();
+      player.bullets.remove(i);
+    }
+  }
 }
 
 void keyPressed()

@@ -1,6 +1,7 @@
 class Ship
 {
-  boolean recentlyShot;
+  boolean recentlyShot = false;
+  float shotTimer;
   
   float playerXPos;
   float playerYPos;
@@ -8,6 +9,9 @@ class Ship
   float playerYSpeed;
   float playerRotation;
   float friction = .9;
+  
+  int bulletCount;
+  ArrayList<Bullet> bullets = new ArrayList<Bullet>();
   
   PShape ship;
   
@@ -51,7 +55,9 @@ class Ship
     playerYSpeed = constrain(playerYSpeed, 0, 5);
 
     applyFriction();
-    changeSpeed();
+    controls();
+    checkShipBoundries();
+    shootBullets();
   
     float rotationXDirection = cos(playerRotation);
     float rotationYDirection = sin(playerRotation);
@@ -69,7 +75,7 @@ class Ship
     popMatrix();
   }
 
-  void changeSpeed()
+  void controls()
   {
     if (areKeysDown[0])
     {
@@ -91,10 +97,29 @@ class Ship
     {
       if (recentlyShot == false)
       {
-        //recentlyShot = true;
-        Bullet newBullet = new Bullet(playerXPos + 15, playerYPos, playerRotation);
-        newBullet.drawBullet();
-        println("Did it!");
+        bullets.add(new Bullet(playerXPos, playerYPos, playerRotation));
+        recentlyShot = true;
+        shotTimer = 0;
+      }
+    }
+  }
+  
+  void shootBullets()
+  { 
+    for (int i = 0; i < bullets.size(); i++)
+    {
+      Bullet bullet = bullets.get(i);
+      bullet.drawBullet();
+      checkBulletBoundries(i);
+    }
+    
+    if (recentlyShot)
+    {
+      shotTimer++;
+      
+      if (shotTimer == 30)
+      {
+        recentlyShot = false;
       }
     }
   }
@@ -105,4 +130,38 @@ class Ship
     playerYSpeed = playerYSpeed * friction;
   }
   
+  void checkBulletBoundries(int num)
+  {
+    if ((bullets.get(num).bulletXPosition > width || bullets.get(num).bulletXPosition < 0) || (bullets.get(num).bulletYPosition > height || bullets.get(num).bulletYPosition < 0))
+    {
+      bullets.remove(num);
+    }
+  }
+  
+  void checkShipBoundries()
+  {
+    if (playerXPos + 15 >= width)
+    {
+      playerXPos = width - 15;
+      //playerRotation = playerRotation + radians(180);
+    }
+    
+    if (playerXPos - 15 <= 0)
+    {
+      playerXPos = 15;
+      //playerRotation = playerRotation + radians(180);
+    }
+    
+    if (playerYPos + 12.5 >= height)
+    {
+      playerYPos = height - 12.5;
+      //playerRotation = playerRotation + radians(180);
+    }
+    
+    if (playerYPos - 12.5 <= 0)
+    {
+      playerYPos = 12.5;
+      //playerRotation = playerRotation + radians(180);
+    }
+  }
 }

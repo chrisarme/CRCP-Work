@@ -6,16 +6,16 @@ class Bullet
   float bulletXSize;
   float bulletYSize;
   float bulletRotation;
-  
+
   Bullet(float shipTipXPosition, float shipTipYPosition, float shipRotation)
   {
-    bulletXPosition = shipTipXPosition + 15;
+    bulletXPosition = shipTipXPosition;
     bulletYPosition = shipTipYPosition;
     bulletRotation = shipRotation;
     
     bulletSpeed = 5;
     bulletXSize = 10;
-    bulletYSize = 3;
+    bulletYSize = 4;
   }
   
   void drawBullet()
@@ -24,10 +24,18 @@ class Bullet
 
       translate(bulletXPosition, bulletYPosition);
       rotate(bulletRotation);
-  
-      rect(sin(playerRotation), cos(playerRotation), bulletXSize, bulletYSize);
+      
+      rect(15 * cos(bulletRotation/180*PI), 12.5 * sin(bulletRotation/180*PI), bulletXSize, bulletYSize);
   
     popMatrix();
+    
+    moveBullet();
+  }
+  
+  void moveBullet()
+  {
+    bulletXPosition = bulletXPosition + (bulletSpeed * cos(bulletRotation));
+    bulletYPosition = bulletYPosition + (bulletSpeed * sin(bulletRotation));
   }
   
   void checkBulletBounds()
