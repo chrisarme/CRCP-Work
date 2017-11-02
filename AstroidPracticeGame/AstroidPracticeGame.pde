@@ -5,6 +5,8 @@ float playerYSpeed = 0;
 float playerRotation = 0;
 float friction = .9;
 
+Ship player;
+
 boolean[] areKeysDown = new boolean[4];
 
 // [0] = w
@@ -16,72 +18,16 @@ void setup()
 {
   size(1000, 600);
   rectMode(CENTER);
-  playerXPos = (width / 2);
-  playerYPos = (height / 2);
+  //noStroke();
+  
+  player = new Ship();
 }
 
 void draw()
 {
   background(color(150));
   
-  moveAndDrawPlayer();
-}
-
-void moveAndDrawPlayer()
-{
-  if (playerXSpeed >= 5)
-  {
-    playerXSpeed = 5;
-  }
-  
-  if (playerYSpeed >= 5)
-  {
-    playerYSpeed = 5;
-  }
-  
-  applyFriction();
-  changeSpeed();
-  
-  playerXPos = playerXPos + playerXSpeed;
-  playerYPos = playerYPos + playerYSpeed;
-  
-  pushMatrix();
-  
-    translate(playerXPos, playerYPos);
-    rotate(playerRotation);
-  
-    rect(0, 0, 50, 50);
-  
-  popMatrix();
-}
-
-void changeSpeed()
-{
-  if (areKeysDown[0])
-  {
-    playerYSpeed -= .5;
-  }
-  
-  if (areKeysDown[1])
-  {
-    playerRotation -= .05;
-  }
-  
-  if (areKeysDown[2])
-  {
-    playerRotation += .05;
-  }
-  
-  if (areKeysDown[3])
-  {
-    
-  }
-}
-
-void applyFriction()
-{
-  playerXSpeed = playerXSpeed * friction;
-  playerYSpeed = playerYSpeed * friction;
+  player.masterShipFunction();
 }
 
 void keyPressed()
