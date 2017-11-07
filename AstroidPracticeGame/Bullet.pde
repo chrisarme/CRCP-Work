@@ -13,7 +13,7 @@ class Bullet
     bulletYPosition = shipTipYPosition;
     bulletRotation = shipRotation;
     
-    bulletSpeed = 5;
+    bulletSpeed = 10;
     bulletXSize = 10;
     bulletYSize = 4;
   }
