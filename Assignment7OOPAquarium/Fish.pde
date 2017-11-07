@@ -1,12 +1,12 @@
 class Fish extends SeaLife
 {
- 
   Fish()
   {
     super();
+    seaLifeImage = loadImage("Images/FishImage.png");
     
-    seaLifeWidthSize = 80 * seaLifeSize;
-    seaLifeHeightSize = 30 * seaLifeSize;
+    seaLifeWidthSize = seaLifeImage.width / 20 * seaLifeSize;
+    seaLifeHeightSize = seaLifeImage.height / 20 * seaLifeSize;
     seaLifeXSpeed = random(-5, 5);
     seaLifeYSpeed = random(-.5, .5);
     seaLifeFloatRate = random(.05, .1);
@@ -18,7 +18,15 @@ class Fish extends SeaLife
     fishSpecificEdgeCheck();
     super.generalControl();
     
-    ellipse(seaLifeXPos, seaLifeYPos + (sin(seaLifeFloatNumber) * 8), seaLifeWidthSize, seaLifeHeightSize);
+    pushMatrix();
+    
+      translate(seaLifeXPos, seaLifeYPos + (sin(seaLifeFloatNumber) * 8));
+      super.checkSeaLifeDirection();
+      image(seaLifeImage, 0, 0, seaLifeWidthSize, seaLifeHeightSize);
+    
+    popMatrix();
+    
+    //ellipse(seaLifeXPos, seaLifeYPos + (sin(seaLifeFloatNumber) * 8), seaLifeWidthSize, seaLifeHeightSize);
   }
   
   // This is needed because the fish float up and down at a specific multiplier of sin(seaLifeFloatNumber), which is currently 8x

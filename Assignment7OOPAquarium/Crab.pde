@@ -1,15 +1,13 @@
 class Crab extends SeaLife
 {
-  PImage crabImage;
-  
   Crab()
   {
     super();
     
-    crabImage = loadImage("Images/CrabImage.png");
+    seaLifeImage = loadImage("Images/CrabImage.png");
     
-    seaLifeWidthSize = crabImage.width / 25 * seaLifeSize;
-    seaLifeHeightSize = crabImage.height / 25 * seaLifeSize;
+    seaLifeWidthSize = seaLifeImage.width / 25 * seaLifeSize;
+    seaLifeHeightSize = seaLifeImage.height / 25 * seaLifeSize;
     seaLifeYPos = height - (seaLifeHeightSize / 2) - aquariumBottomSize;
     seaLifeXSpeed = random(-5, 5);
     seaLifeYSpeed = 0;
@@ -24,24 +22,11 @@ class Crab extends SeaLife
     pushMatrix();
       
       translate(seaLifeXPos, seaLifeYPos);
-      checkCrabDirection();
-      image(crabImage, 0, 0, seaLifeWidthSize, seaLifeHeightSize);
+      super.checkSeaLifeDirection();
+      image(seaLifeImage, 0, 0, seaLifeWidthSize, seaLifeHeightSize);
     
     popMatrix();
     
     //ellipse(seaLifeXPos, seaLifeYPos, seaLifeWidthSize, seaLifeHeightSize);
   }
-  
-  void checkCrabDirection()
-  {
-    if (seaLifeXSpeed > 0)
-    {
-      scale(-1, 1);
-    }
-    else if (seaLifeXSpeed < 0)
-    {
-      scale(1, 1);
-    }
-  }
-  
 }

@@ -10,11 +10,23 @@ void setup()
   noStroke();
   imageMode(CENTER);
   background(#0077be);
-  size(1000, 800);
+  size(1000, 600);
   
-  aquariumBottomStart = height - aquariumBottomSize;
+  aquariumBottomStart = height - aquariumBottomSize; 
   
-  // this is so small I didn't think that it needed it's own function
+  createAllObjects();
+}
+
+void draw()
+{
+  background(#0077be);
+  drawAquariumBottom();
+  
+  drawAllObjects();
+}
+
+void createAllObjects()
+{
   for (int i = 0; i < numberOfFish - 1; i++)
   {
     fish[i] = new Fish();
@@ -24,16 +36,11 @@ void setup()
   {
     crabs[i] = new Crab();
   }
-  
 }
 
-void draw()
+void drawAllObjects()
 {
-  background(#0077be);
-  drawAquariumBottom();
-  
-  // this is so small I didn't think that it needed it's own function
-  for (int i = 0; i < numberOfFish - 1; i++)
+    for (int i = 0; i < numberOfFish - 1; i++)
   {
     fish[i].drawFish();
   }

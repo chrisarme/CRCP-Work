@@ -1,5 +1,7 @@
 class SeaLife
 {
+  PImage seaLifeImage;
+  
   float seaLifeXPos;
   float seaLifeYPos;
   float seaLifeWidthSize;
@@ -77,6 +79,18 @@ class SeaLife
     if (seaLifeFloatNumber >= TWO_PI)
     {
       seaLifeFloatNumber = 0;
+    }
+  }
+  
+  void checkSeaLifeDirection()
+  {
+    if (seaLifeXSpeed > 0)
+    {
+      scale(-1, 1);
+    }
+    else if (seaLifeXSpeed < 0)
+    {
+      scale(1, 1);
     }
   }
   
