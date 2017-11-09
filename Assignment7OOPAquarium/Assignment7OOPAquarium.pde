@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 float aquariumBottomSize = 25;
 float aquariumBottomStart;
 int numberOfFish = int(random(5, 50));

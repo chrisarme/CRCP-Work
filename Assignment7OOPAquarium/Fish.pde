@@ -62,17 +62,16 @@ class Fish extends SeaLife
       
       bubbleOnCooldown = true;
     }
-    else if (bubbleOnCooldown)
-    {
-      if (bubble.seaLifeYPos <= 0)
-      {
-        bubbleOnCooldown = false;
-      }
-    }
     
     if (bubble != null)
     {
       bubble.drawBubble();
+      
+      if (!bubble.checkIfShouldExist())
+      {
+        bubbleOnCooldown = false;
+        bubble = null;
+      }
     }
   }
 }
