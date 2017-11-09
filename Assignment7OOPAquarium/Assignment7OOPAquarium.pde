@@ -2,8 +2,10 @@ float aquariumBottomSize = 25;
 float aquariumBottomStart;
 int numberOfFish = int(random(5, 50));
 int numberOfCrabs = int(random(3, 10));
+int numberOfSquids = int(random(3, 5));
 Fish[] fish = new Fish[numberOfFish];
 Crab[] crabs = new Crab[numberOfCrabs];
+GiantSquid[] squids = new GiantSquid[numberOfSquids];
 
 void setup()
 {
@@ -36,10 +38,20 @@ void createAllObjects()
   {
     crabs[i] = new Crab();
   }
+  
+  for (int i = 0; i < numberOfSquids; i++)
+  {
+    squids[i] = new GiantSquid();
+  }
 }
 
 void drawAllObjects()
 {
+  for (int i = 0; i < numberOfSquids; i++)
+  {
+    squids[i].drawSquid();
+  }
+  
     for (int i = 0; i < numberOfFish - 1; i++)
   {
     fish[i].drawFish();

@@ -1,5 +1,8 @@
 class Fish extends SeaLife
 {
+  boolean bubbleOnCooldown;
+  Bubbles bubble;
+  
   Fish()
   {
     super();
@@ -12,11 +15,14 @@ class Fish extends SeaLife
     seaLifeYSpeed = random(-.5, .5);
     seaLifeFloatRate = random(.05, .1);
     seaLifeColor = color(random(255), random(255), random(255));
+    
+    bubbleOnCooldown = false;
   }
   
   void drawFish()
   {
     fishSpecificEdgeCheck();
+    blowBubbles();
     super.generalControl();
     
     
@@ -44,6 +50,29 @@ class Fish extends SeaLife
     {
       seaLifeYPos = height - (seaLifeHeightSize / 2) - (sin(seaLifeFloatNumber) * 8) - aquariumBottomSize;
       seaLifeYSpeed = seaLifeYSpeed * -1;
+    }
+  }
+  
+  void blowBubbles()
+  {
+    float randomNum = random(0, 10);
+    if (!bubbleOnCooldown && (randomNum > 9.99))
+    {
+      bubble = new Bubbles(this.seaLifeXPos + (seaLifeWidthSize / 2), this.seaLifeYPos);
+      
+      bubbleOnCooldown = true;
+    }
+    else if (bubbleOnCooldown)
+    {
+      if (bubble.seaLifeYPos <= 0)
+      {
+        bubbleOnCooldown = false;
+      }
+    }
+    
+    if (bubble != null)
+    {
+      bubble.drawBubble();
     }
   }
 }
