@@ -1,6 +1,7 @@
 class SeaLife
 {
   PImage seaLifeImage;
+  color seaLifeTint;
   
   float seaLifeXPos;
   float seaLifeYPos;
@@ -30,10 +31,7 @@ class SeaLife
   void generalControl()
   {
     fill(seaLifeColor);
-    
-    // The seaLife will slightly float up and down thanks to the sin
-    
-    
+
     moveseaLife();
     checkEdgesAndBounce();
     changeFloatNumber();

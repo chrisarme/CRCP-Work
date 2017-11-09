@@ -5,6 +5,7 @@ class Crab extends SeaLife
     super();
     
     seaLifeImage = loadImage("Images/CrabImage.png");
+    seaLifeTint = color(255);
     
     seaLifeWidthSize = seaLifeImage.width / 25 * seaLifeSize;
     seaLifeHeightSize = seaLifeImage.height / 25 * seaLifeSize;
@@ -19,14 +20,14 @@ class Crab extends SeaLife
   {
     super.generalControl();
     
+    // maybe add this to SeaLife?
     pushMatrix();
       
+      tint(seaLifeTint);
       translate(seaLifeXPos, seaLifeYPos);
       super.checkSeaLifeDirection();
       image(seaLifeImage, 0, 0, seaLifeWidthSize, seaLifeHeightSize);
     
     popMatrix();
-    
-    //ellipse(seaLifeXPos, seaLifeYPos, seaLifeWidthSize, seaLifeHeightSize);
   }
 }
