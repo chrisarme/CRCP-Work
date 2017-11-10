@@ -7,102 +7,102 @@ class GiantSquid extends SeaLife
   {
     super();
     
-    seaLifeImage = loadImage("Images/SquidImage.png");
-    seaLifeTint = color(color(random(100, 255), random(100, 255), random(100, 255), 200));
+    this.seaLifeImage = loadImage("Images/SquidImage.png");
+    this.seaLifeTint = color(color(random(100, 255), random(100, 255), random(100, 255), 200));
     
-    seaLifeWidthSize = seaLifeImage.width / 2.5 * seaLifeSize;
-    seaLifeHeightSize = seaLifeImage.height / 2.5 * seaLifeSize;
-    originalSquidXSpeed = random(-.5, .5);
-    originalSquidYSpeed = random(-.5, .5);
-    originalSpeedNotZero();
-    seaLifeXSpeed = originalSquidXSpeed;
-    seaLifeYSpeed = originalSquidYSpeed;
-    seaLifeFloatRate = 0;
-    seaLifeColor = color(random(255), random(255), random(255));     
+    this.seaLifeWidthSize = this.seaLifeImage.width / 2.5 * this.seaLifeSize;
+    this.seaLifeHeightSize = this.seaLifeImage.height / 2.5 * this.seaLifeSize;
+    //this.originalSquidXSpeed = random(-.5, .5);
+    //this.originalSquidYSpeed = random(-.5, .5);
+    this.createOriginalNumbers();
+    this.seaLifeXSpeed = this.originalSquidXSpeed;
+    this.seaLifeYSpeed = this.originalSquidYSpeed;
+    this.seaLifeFloatRate = 0;
+    this.seaLifeColor = color(random(255), random(255), random(255));     
   }
   
   void drawSquid()
   {
-    moveSquidSporadically();
+    this.moveSquidSporadically();
     super.generalControl();
     
     pushMatrix();
     
-      tint(seaLifeTint);
-      translate(seaLifeXPos, seaLifeYPos);
+      tint(this.seaLifeTint);
+      translate(this.seaLifeXPos, this.seaLifeYPos);
       super.checkSeaLifeDirection();
-      flipSquidVertically();
-      image(seaLifeImage, 0, 0, seaLifeWidthSize, seaLifeHeightSize);
+      this.flipSquidVertically();
+      image(this.seaLifeImage, 0, 0, this.seaLifeWidthSize, this.seaLifeHeightSize);
     
     popMatrix();
   }
   
   void moveSquidSporadically()
   {
-    if ((abs(seaLifeXSpeed) == (abs(originalSquidXSpeed))) && (abs(seaLifeYSpeed) == abs(originalSquidYSpeed)))
+    if ((abs(this.seaLifeXSpeed) == (abs(this.originalSquidXSpeed))) && (abs(this.seaLifeYSpeed) == abs(this.originalSquidYSpeed)))
     {
       float randomNum = random(0, 5);
       
       if (randomNum > 4)
       {
-        if (seaLifeXSpeed > 0) 
+        if (this.seaLifeXSpeed >= 0) 
         { 
-          seaLifeXSpeed += 3; 
+          this.seaLifeXSpeed += 3; 
         }
         else 
         {
-          seaLifeXSpeed -= 3;
+          this.seaLifeXSpeed -= 3;
         }
         
-        if (seaLifeYSpeed > 0) 
+        if (this.seaLifeYSpeed >= 0) 
         { 
-          seaLifeYSpeed += 3; 
+          this.seaLifeYSpeed += 3; 
         }
         else 
         {
-          seaLifeYSpeed -= 3;
+          this.seaLifeYSpeed -= 3;
         }
       }
     }
     else
     {
-      if ((seaLifeXSpeed > 0) && (abs(seaLifeXSpeed) != abs(originalSquidXSpeed))) 
+      if ((this.seaLifeXSpeed > 0) && (abs(this.seaLifeXSpeed) != abs(this.originalSquidXSpeed))) 
       { 
-        seaLifeXSpeed -= .05; 
+        this.seaLifeXSpeed -= .05; 
       }
-      else if ((seaLifeXSpeed < 0) && (abs(seaLifeXSpeed) != abs(originalSquidXSpeed)))
+      else if ((this.seaLifeXSpeed < 0) && (abs(this.seaLifeXSpeed) != abs(this.originalSquidXSpeed)))
       {
-        seaLifeXSpeed += .05;
+        this.seaLifeXSpeed += .05;
       }
       
-      if ((seaLifeYSpeed > 0) && (abs(seaLifeYSpeed) != abs(originalSquidYSpeed))) 
+      if ((this.seaLifeYSpeed >= 0) && (abs(this.seaLifeYSpeed) != abs(this.originalSquidYSpeed))) 
       { 
-        seaLifeYSpeed -= .05; 
+        this.seaLifeYSpeed -= .05; 
       }
-      else if ((seaLifeYSpeed < 0) && (abs(seaLifeYSpeed) != abs(originalSquidYSpeed)))
+      else if ((this.seaLifeYSpeed < 0) && (abs(this.seaLifeYSpeed) != abs(this.originalSquidYSpeed)))
       {
-        seaLifeYSpeed += .05;
+        this.seaLifeYSpeed += .05;
       }
     }
     
-    if (abs(seaLifeXSpeed) < abs(originalSquidXSpeed))
+    if (abs(this.seaLifeXSpeed) < abs(this.originalSquidXSpeed))
     {
-      if (seaLifeXSpeed > 0)
+      if (this.seaLifeXSpeed > 0)
       {
-        seaLifeXSpeed = abs(originalSquidXSpeed);
+        this.seaLifeXSpeed = abs(this.originalSquidXSpeed);
       }
-      else if (seaLifeXSpeed < 0)
+      else if (this.seaLifeXSpeed < 0)
       {
-        seaLifeXSpeed = abs(originalSquidXSpeed) * -1;
+        this.seaLifeXSpeed = abs(this.originalSquidXSpeed) * -1;
       }
       
-      if (seaLifeYSpeed > 0)
+      if (this.seaLifeYSpeed >= 0)
       {
-        seaLifeYSpeed = abs(originalSquidYSpeed);
+        this.seaLifeYSpeed = abs(this.originalSquidYSpeed);
       }
       else if (seaLifeYSpeed < 0)
       {
-        seaLifeYSpeed = abs(originalSquidYSpeed) * -1;
+        this.seaLifeYSpeed = abs(this.originalSquidYSpeed) * -1;
       }
       
     }
@@ -110,29 +110,63 @@ class GiantSquid extends SeaLife
   
   void flipSquidVertically()
   {
+    //println(seaLifeYSpeed);
     if (seaLifeYSpeed > 0)
     {
       scale(1, -1);
     }
-    else if (seaLifeYSpeed < 0)
+    else if (seaLifeYSpeed <= 0)
     {
       scale(1, 1);
     }
   }
   
   // It wouldn't be good if the speed was zero! This stops that issue
-  void originalSpeedNotZero()
+  void createOriginalNumbers()
   {
-    if (originalSquidXSpeed == 0)
+    boolean isXPosOrNeg;
+    boolean isYPosOrNeg;
+    // true = Pos, false = Neg
+    
+    int randomXBooleanNum = int(random(0, 3));
+    int randomYBooleanNum = int(random(0, 3));
+    
+    // Create X value
+    if (randomXBooleanNum > 1)
     {
-      originalSquidXSpeed = random(-.5, .5);
-      originalSpeedNotZero();
+      isXPosOrNeg = true;
+    }
+    else
+    {
+      isXPosOrNeg = false;
     }
     
-    if (originalSquidYSpeed == 0)
+    if (isXPosOrNeg)
     {
-      originalSquidYSpeed = random(-.5, .5);
-      originalSpeedNotZero();
+      originalSquidXSpeed = random(.051, .5);
+    }
+    else
+    {
+      originalSquidXSpeed = random(-.5, -.051);
+    }
+    
+    // Create Y value
+    if (randomYBooleanNum > 1)
+    {
+      isYPosOrNeg = true;
+    }
+    else
+    {
+      isYPosOrNeg = false;
+    }
+    
+    if (isYPosOrNeg)
+    {
+      originalSquidYSpeed = random(.051, .5);
+    }
+    else
+    {
+      originalSquidYSpeed = random(-.5, -.051);
     }
   }
 }

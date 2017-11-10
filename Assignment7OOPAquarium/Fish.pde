@@ -6,33 +6,33 @@ class Fish extends SeaLife
   Fish()
   {
     super();
-    seaLifeImage = loadImage("Images/FishImage.png");
-    seaLifeTint = color(color(random(100, 255), random(100, 255), random(100, 255)));
+    this.seaLifeImage = loadImage("Images/FishImage.png");
+    this.seaLifeTint = color(color(random(100, 255), random(100, 255), random(100, 255)));
     
-    seaLifeWidthSize = seaLifeImage.width / 20 * seaLifeSize;
-    seaLifeHeightSize = seaLifeImage.height / 20 * seaLifeSize;
-    seaLifeXSpeed = random(-5, 5);
-    seaLifeYSpeed = random(-.5, .5);
-    seaLifeFloatRate = random(.05, .1);
-    seaLifeColor = color(random(255), random(255), random(255));
+    this.seaLifeWidthSize = seaLifeImage.width / 20 * seaLifeSize;
+    this.seaLifeHeightSize = seaLifeImage.height / 20 * seaLifeSize;
+    this.seaLifeXSpeed = random(-5, 5);
+    this.seaLifeYSpeed = random(-.5, .5);
+    this.seaLifeFloatRate = random(.05, .1);
+    this.seaLifeColor = color(random(255), random(255), random(255));
     
-    bubbleOnCooldown = false;
+    this.bubbleOnCooldown = false;
   }
   
   void drawFish()
   {
-    fishSpecificEdgeCheck();
-    blowBubbles();
+    this.fishSpecificEdgeCheck();
+    this.blowBubbles();
     super.generalControl();
     
     
     // maybe add this to SeaLife?
     pushMatrix();
     
-      tint(seaLifeTint);
-      translate(seaLifeXPos, seaLifeYPos + (sin(seaLifeFloatNumber) * 8));
+      tint(this.seaLifeTint);
+      translate(this.seaLifeXPos, this.seaLifeYPos + (sin(this.seaLifeFloatNumber) * 8));
       super.checkSeaLifeDirection();
-      image(seaLifeImage, 0, 0, seaLifeWidthSize, seaLifeHeightSize);
+      image(this.seaLifeImage, 0, 0, this.seaLifeWidthSize, this.seaLifeHeightSize);
     
     popMatrix();
   }
@@ -40,38 +40,38 @@ class Fish extends SeaLife
   // This is needed because the fish float up and down at a specific multiplier of sin(seaLifeFloatNumber), which is currently 8x
   void fishSpecificEdgeCheck()
   {
-    if (seaLifeYPos - (seaLifeHeightSize / 2) + (sin(seaLifeFloatNumber) * 8) <= 0)
+    if (this.seaLifeYPos - (this.seaLifeHeightSize / 2) + (sin(this.seaLifeFloatNumber) * 8) <= 0)
     {
-      seaLifeYPos = 0 + (seaLifeHeightSize / 2) - (sin(seaLifeFloatNumber) * 8);
-      seaLifeYSpeed = seaLifeYSpeed * -1;
+      this.seaLifeYPos = 0 + (this.seaLifeHeightSize / 2) - (sin(this.seaLifeFloatNumber) * 8);
+      this.seaLifeYSpeed = this.seaLifeYSpeed * -1;
     }
     
-    if (seaLifeYPos + (seaLifeHeightSize / 2) + (sin(seaLifeFloatNumber) * 8) >= height - aquariumBottomSize)
+    if (this.seaLifeYPos + (this.seaLifeHeightSize / 2) + (sin(this.seaLifeFloatNumber) * 8) >= height - aquariumBottomSize)
     {
-      seaLifeYPos = height - (seaLifeHeightSize / 2) - (sin(seaLifeFloatNumber) * 8) - aquariumBottomSize;
-      seaLifeYSpeed = seaLifeYSpeed * -1;
+      this.seaLifeYPos = height - (this.seaLifeHeightSize / 2) - (sin(this.seaLifeFloatNumber) * 8) - aquariumBottomSize;
+      this.seaLifeYSpeed = this.seaLifeYSpeed * -1;
     }
   }
   
   void blowBubbles()
   {
     float randomNum = random(0, 10);
-    if (!bubbleOnCooldown && (randomNum > 9.99))
+    if (!this.bubbleOnCooldown && (randomNum > 9.99))
     {
       bubbleSound.play(0);
-      bubble = new Bubbles(this.seaLifeXPos + (seaLifeWidthSize / 2), this.seaLifeYPos);
+      this.bubble = new Bubbles(this.seaLifeXPos + (seaLifeWidthSize / 2), this.seaLifeYPos);
       
-      bubbleOnCooldown = true;
+      this.bubbleOnCooldown = true;
     }
     
-    if (bubble != null)
+    if (this.bubble != null)
     {
-      bubble.drawBubble();
+      this.bubble.drawBubble();
       
-      if (!bubble.checkIfShouldExist())
+      if (!this.bubble.checkIfShouldExist())
       {
-        bubbleOnCooldown = false;
-        bubble = null;
+        this.bubbleOnCooldown = false;
+        this.bubble = null;
       }
     }
   }

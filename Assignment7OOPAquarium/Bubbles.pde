@@ -11,7 +11,7 @@ class Bubbles extends SeaLife
     this.seaLifeHeightSize = this.seaLifeWidthSize;
     this.seaLifeXSpeed = 0;
     this.seaLifeYSpeed = random(-3, -1);
-    this.seaLifeFloatRate = random(.05, .1);
+    this.seaLifeFloatRate = random(.3, .8);
     this.seaLifeColor = color(255, 100);
   }
   
@@ -20,7 +20,7 @@ class Bubbles extends SeaLife
     super.generalControl();
     pushMatrix();
     
-      translate(this.seaLifeXPos, this.seaLifeYPos);
+      translate(this.seaLifeXPos + cos(this.seaLifeFloatNumber), this.seaLifeYPos);
       ellipse(0, 0, this.seaLifeWidthSize, this.seaLifeHeightSize);
     
     popMatrix();

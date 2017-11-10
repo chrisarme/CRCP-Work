@@ -1,3 +1,4 @@
+// Minim Library
 import ddf.minim.*;
 
 Minim minim;
@@ -7,7 +8,7 @@ float aquariumBottomSize = 25;
 float aquariumBottomStart;
 int numberOfFish = int(random(5, 50));
 int numberOfCrabs = int(random(3, 10));
-int numberOfSquids = int(random(3, 5));
+int numberOfSquids = int(random(1, 5));
 Fish[] fish = new Fish[numberOfFish];
 Crab[] crabs = new Crab[numberOfCrabs];
 GiantSquid[] squids = new GiantSquid[numberOfSquids];
