@@ -58,6 +58,7 @@ class Fish extends SeaLife
     float randomNum = random(0, 10);
     if (!bubbleOnCooldown && (randomNum > 9.99))
     {
+      bubbleSound.play(0);
       bubble = new Bubbles(this.seaLifeXPos + (seaLifeWidthSize / 2), this.seaLifeYPos);
       
       bubbleOnCooldown = true;

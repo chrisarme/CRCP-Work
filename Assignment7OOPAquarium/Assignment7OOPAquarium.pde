@@ -1,4 +1,7 @@
-import processing.sound.*;
+import ddf.minim.*;
+
+Minim minim;
+AudioPlayer bubbleSound;
 
 float aquariumBottomSize = 25;
 float aquariumBottomStart;
@@ -10,19 +13,22 @@ Crab[] crabs = new Crab[numberOfCrabs];
 GiantSquid[] squids = new GiantSquid[numberOfSquids];
 
 void setup()
-{
+{ 
   noStroke();
   imageMode(CENTER);
   background(#0077be);
   size(1000, 600);
   
-  aquariumBottomStart = height - aquariumBottomSize; 
+  aquariumBottomStart = height - aquariumBottomSize;
+  
+  minim = new Minim(this);
+  bubbleSound = minim.loadFile("Sounds/BubbleSound.wav");
   
   createAllObjects();
 }
 
 void draw()
-{
+{ 
   background(#0077be);
   drawAquariumBottom();
   
