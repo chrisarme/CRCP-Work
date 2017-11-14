@@ -2,13 +2,15 @@ class Ground
 {
   float groundXPos;
   float groundYPos;
+  float groundHeight;
   color groundColor;
   
   Ground()
   {
-    groundXPos = 0;
-    groundYPos = height - 100;
-    groundColor = color(200);
+    this.groundXPos = 0;
+    this.groundHeight = 50;
+    this.groundYPos = height - groundHeight;
+    this.groundColor = color(200);
   }
   
   void displayGround()

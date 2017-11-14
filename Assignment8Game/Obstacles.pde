@@ -9,12 +9,12 @@ class Obstacles
   
   Obstacles()
   {
-    obstacleXPos = width + 50;
-    obstacleYPos = ground.groundYPos;
-    obstacleXSpeed = 2;
-    obstacleHeight = int(random(100, 300));
-    obstacleWidth = int(random(50, 100));
-    obstacleColor = color(200);
+    this.obstacleXPos = width + 50;
+    this.obstacleYPos = ground.groundYPos;
+    this.obstacleXSpeed = 5;
+    this.obstacleHeight = int(random(100, 300));
+    this.obstacleWidth = int(random(50, 100));
+    this.obstacleColor = color(200);
   }
   
   void displayObstacle()
@@ -33,6 +33,5 @@ class Obstacles
   void moveObstacle()
   {
     obstacleXPos -= obstacleXSpeed;
-    println(obstacleXPos);
   }
 }
