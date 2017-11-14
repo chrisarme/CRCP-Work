@@ -7,9 +7,9 @@ class Obstacles
   float obstacleWidth;
   color obstacleColor;
   
-  Obstacles()
+  Obstacles(float iNum)
   {
-    this.obstacleXPos = width + 50;
+    this.obstacleXPos = width + 50 + (500 * iNum);
     this.obstacleYPos = ground.groundYPos;
     this.obstacleXSpeed = 5;
     this.obstacleHeight = int(random(100, 300));

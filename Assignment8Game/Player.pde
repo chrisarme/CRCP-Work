@@ -2,9 +2,13 @@ class Player
 {
   boolean touchingGround;
   boolean isSpacePressed;
+  boolean isSPressed;
+  boolean atMaxSpeed;
+  boolean canJump;
   float playerXPos;
   float playerYPos;
   float playerYSpeed;
+  float playerMaxYSpeed;
   float playerWidth;
   float playerHeight;
   color playerColor;
@@ -18,14 +22,16 @@ class Player
     this.playerXPos = 200 - (playerWidth / 2);
     this.playerYPos = ground.groundYPos - (playerHeight / 2);
     this.playerYSpeed = 0;
+    this.playerMaxYSpeed = 11;
     this.playerColor = color(255);
     
-    this.gravity = -.15;
+    this.gravity = -.25;
   }
   
   void displayPlayer()
   {
     movePlayer();
+    slamDown();
     applyGravity();
 
     
@@ -60,6 +66,7 @@ class Player
       touchingGround = true;
       playerYSpeed = 0;
       playerYPos = ground.groundYPos - (playerHeight / 2);
+      canJump = true;
     }
     else
     {
@@ -69,10 +76,30 @@ class Player
   
   void jump()
   {
-    if ((touchingGround) && (isSpacePressed))
+    if (playerYSpeed >= playerMaxYSpeed)
+    {
+      playerYSpeed = playerMaxYSpeed;
+      atMaxSpeed = true;
+    }
+    
+    if ((playerYSpeed == 0) && (touchingGround))
+    {
+      atMaxSpeed = false;
+    }
+    
+    if (isSpacePressed && (!atMaxSpeed) && canJump)
     {
       touchingGround = false;
-      playerYSpeed += 10;
+      playerYSpeed += 1;
     }
   } 
+  
+  void slamDown()
+  {
+    if (!touchingGround && isSPressed)
+    {
+      playerYSpeed = 0;
+      playerYPos = ground.groundYPos - (playerHeight / 2);
+    }
+  }
 }

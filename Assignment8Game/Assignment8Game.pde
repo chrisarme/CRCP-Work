@@ -2,9 +2,11 @@
 // Assignment 8
 // Canabalt
 
+int amountOfObstacles = 2;
+
 Player player;
 Ground ground;
-Obstacles testObstacle;
+Obstacles[] testObstacle = new Obstacles[amountOfObstacles];
 
 void setup()
 {
@@ -15,14 +17,20 @@ void setup()
   size(800, 500);
   ground = new Ground();
   player = new Player();
-  testObstacle = new Obstacles();
+  for (int i = 0; i < amountOfObstacles; i++)
+  {
+    testObstacle[i] = new Obstacles(i);
+  }
 }
 
 void draw()
 {
   background(100);
   ground.displayGround(); 
-  testObstacle.displayObstacle();
+  for (int i = 0; i < amountOfObstacles; i++)
+  {
+    testObstacle[i].displayObstacle();
+  }
   player.displayPlayer();
 }
 
@@ -32,6 +40,11 @@ void keyPressed()
   {
     player.isSpacePressed = true;
   }
+  
+  if (key == 's')
+  {
+    player.isSPressed = true;
+  }
 }
 
 void keyReleased()
@@ -39,5 +52,11 @@ void keyReleased()
   if ((key == ' '))
   {
     player.isSpacePressed = false;
+    player.canJump = false;
+  }
+  
+    if (key == 's')
+  {
+    player.isSPressed = false;
   }
 }
