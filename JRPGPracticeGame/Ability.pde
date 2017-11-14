@@ -1,0 +1,9 @@
+class Ability
+{
+  Ability()
+  {
+    
+  }
+  
+  
+}
