@@ -1,5 +1,7 @@
 class SeaLife
 {
+  // This is the superclass over Bubbles, Crab, Fish and GiantSquid
+  
   PImage seaLifeImage;
   color seaLifeTint;
   
@@ -43,6 +45,7 @@ class SeaLife
     seaLifeYPos = seaLifeYPos + seaLifeYSpeed;
   }
   
+  // Pretty self-explanatory
   void checkEdgesAndBounce()
   {
     if (seaLifeXPos - (seaLifeWidthSize / 2) <= 0)
@@ -80,6 +83,7 @@ class SeaLife
     }
   }
   
+  // Changes which way the seaLife is faceing horizontally
   void checkSeaLifeDirection()
   {
     if (seaLifeXSpeed > 0)

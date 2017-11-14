@@ -12,8 +12,6 @@ class GiantSquid extends SeaLife
 
     this.seaLifeWidthSize = this.seaLifeImage.width / 2.5 * this.seaLifeSize;
     this.seaLifeHeightSize = this.seaLifeImage.height / 2.5 * this.seaLifeSize;
-    //this.originalSquidXSpeed = random(-.5, .5);
-    //this.originalSquidYSpeed = random(-.5, .5);
     this.createOriginalNumbers();
     this.seaLifeXSpeed = this.originalSquidXSpeed;
     this.seaLifeYSpeed = this.originalSquidYSpeed;
@@ -37,6 +35,7 @@ class GiantSquid extends SeaLife
     popMatrix();
   }
 
+// This will move the squids in bursts randomly
   void moveSquidSporadically()
   {
     if ((abs(this.seaLifeXSpeed) == (abs(this.originalSquidXSpeed))) && (abs(this.seaLifeYSpeed) == abs(this.originalSquidYSpeed)))
@@ -100,6 +99,7 @@ class GiantSquid extends SeaLife
     }
   }
 
+  // Flips the squid image vertically
   void flipSquidVertically()
   {
     //println(seaLifeYSpeed);

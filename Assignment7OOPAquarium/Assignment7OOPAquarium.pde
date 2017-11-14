@@ -1,3 +1,8 @@
+// Chris Arme
+// Assignment 7
+// An "Aquarium" with Crabs, GiantSquids, Fish and Bubbles which the fish blow, all of which are subclasses of the SeaLife superclass. There is also Seaweed, but it is its own class.
+
+
 // Minim Library
 import ddf.minim.*;
 
@@ -9,7 +14,7 @@ float aquariumBottomStart;
 int numberOfFish = int(random(5, 50));
 int numberOfCrabs = int(random(3, 10));
 int numberOfSquids = int(random(1, 5));
-int numberOfSeaweed = int(random(1, 3));
+int numberOfSeaweed = int(random(40, 60));
 Fish[] fish = new Fish[numberOfFish];
 Crab[] crabs = new Crab[numberOfCrabs];
 GiantSquid[] squids = new GiantSquid[numberOfSquids];
@@ -24,18 +29,21 @@ void setup()
   
   aquariumBottomStart = height - aquariumBottomSize;
   
+  // This is the fish bubble sound!
   minim = new Minim(this);
   bubbleSound = minim.loadFile("Sounds/BubbleSound.wav");
   
+  // This creates the original versions of the objects
   createAllObjects();
 }
 
 void draw()
 { 
   background(#0077be);
-  drawAquariumBottom();
   
+  // These draw the aquarium bottom and all the objects inside the aquarium
   drawAllObjects();
+  drawAquariumBottom();
 }
 
 void createAllObjects()

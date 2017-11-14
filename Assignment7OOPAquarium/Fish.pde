@@ -21,7 +21,10 @@ class Fish extends SeaLife
   
   void drawFish()
   {
+    // This specific check will check if the seaLifeYPos + the sin(this.seaLifeFloatNumber) +- the seaLifeHeight is touching the top or bottom of the aquarium area
     this.fishSpecificEdgeCheck();
+    
+    // This causes the fish to randomly blow bubbles
     this.blowBubbles();
     super.generalControl();
     
@@ -30,6 +33,8 @@ class Fish extends SeaLife
     pushMatrix();
     
       tint(this.seaLifeTint);
+      
+      // The sin(this.seaLifeFloatNumber) will cause the fish to float up and down
       translate(this.seaLifeXPos, this.seaLifeYPos + (sin(this.seaLifeFloatNumber) * 8));
       super.checkSeaLifeDirection();
       image(this.seaLifeImage, 0, 0, this.seaLifeWidthSize, this.seaLifeHeightSize);

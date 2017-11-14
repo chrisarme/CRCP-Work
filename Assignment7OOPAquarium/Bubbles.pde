@@ -20,12 +20,14 @@ class Bubbles extends SeaLife
     super.generalControl();
     pushMatrix();
     
+      // The cos(this.seaLifeFloatNumber) will cause the bubbles to float from side to side
       translate(this.seaLifeXPos + cos(this.seaLifeFloatNumber), this.seaLifeYPos);
       ellipse(0, 0, this.seaLifeWidthSize, this.seaLifeHeightSize);
     
     popMatrix();
   }
   
+  // If the bubble reaches the top of the screen, it should not exist
   boolean checkIfShouldExist()
   {
     if (this.seaLifeYPos - (this.seaLifeHeightSize / 2) <= 0)

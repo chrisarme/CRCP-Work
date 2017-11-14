@@ -21,11 +21,9 @@ class Crab extends SeaLife
   
   void drawCrab()
   {
-    // BROKEN FEATURE
-    //runFromSquids();
     super.generalControl();
     
-    // maybe add this to SeaLife?
+    // Normal draw function
     pushMatrix();
       
       tint(this.seaLifeTint);
@@ -35,36 +33,4 @@ class Crab extends SeaLife
     
     popMatrix();
   }
-  
-  // I don't like squids! I run away from them as fast as possible!
-  // BROKEN FEATURE
-  
-  /*void runFromSquids()
-  {
-    for (int i = 0; i < numberOfSquids; i++)
-    {
-      if (dist(this.seaLifeXPos, this.seaLifeXPos, squids[i].seaLifeXPos, squids[i].seaLifeYPos) <= 200)
-      {
-        if (this.seaLifeXSpeed > 0)
-        {
-          this.seaLifeXSpeed = this.seaLifeXSpeed + 5;
-        }
-        if (this.seaLifeXSpeed < 0)
-        {
-          this.seaLifeXSpeed = this.seaLifeXSpeed - 5;
-        }
-      }
-      else
-      {
-        if (this.seaLifeXSpeed > 0)
-        {
-          this.seaLifeXSpeed = abs(this.originalCrabXSpeed);
-        }
-        if (this.seaLifeXSpeed < 0)
-        {
-          this.seaLifeXSpeed = abs(this.originalCrabXSpeed) * -1;
-        }
-      }
-    }
-  }*/
 }
