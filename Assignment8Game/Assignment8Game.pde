@@ -2,11 +2,12 @@
 // Assignment 8
 // Canabalt
 
-int amountOfObstacles = 2;
+//int amountOfObstacles = 2;
 
 Player player;
 Ground ground;
-Obstacles[] testObstacle = new Obstacles[amountOfObstacles];
+ArrayList<Obstacles> obstacles = new ArrayList<Obstacles>();
+GameControl gameController;
 
 void setup()
 {
@@ -17,21 +18,35 @@ void setup()
   size(800, 500);
   ground = new Ground();
   player = new Player();
-  for (int i = 0; i < amountOfObstacles; i++)
-  {
-    testObstacle[i] = new Obstacles(i);
-  }
+  
+  gameController = new GameControl();
+  
+  obstacles.add(new Obstacles(0));
+  obstacles.add(new Obstacles(1));
+  obstacles.add(new Obstacles(3));
 }
 
 void draw()
 {
   background(100);
-  ground.displayGround(); 
-  for (int i = 0; i < amountOfObstacles; i++)
+  ground.displayGround();
+  
+  for (int i = 0; i < obstacles.size(); i++)
   {
-    testObstacle[i].displayObstacle();
+    obstacles.get(i).displayObstacle();
+    if (gameController.createObstacles(obstacles.get(i).isObstacleOffScreen()))
+    {
+      obstacles.remove(i);
+    }
   }
+  if (gameController.createObstacles(false))
+  {
+    obstacles.add(new Obstacles(0));
+  }
+  
   player.displayPlayer();
+  
+  gameController.checkIfGameOver();
 }
 
 void keyPressed()

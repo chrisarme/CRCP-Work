@@ -1,7 +1,7 @@
 
 String playerName = "Hark Juun";
 
-Character player1 = new Character(playerName);
+Character player1 = new Character(playerName, 0);
 
 float floatNumber = 0;
 
@@ -9,6 +9,7 @@ void setup()
 {
   size(1000, 600);
   background(100);
+  rectMode(CENTER);
   textAlign(LEFT, TOP);
   
   noStroke();
@@ -26,13 +27,13 @@ void drawPlayerInfo()
 {
   fill(200);
   
-  rect(0, (height * .7), width, (height * .3));
+  rect(width / 2, height - (height * .15), width, (height * .3));
   
   //divisors
-  fill(100);
-  rect((width * .25) - 1, (height * .7), 2, (height * .3));
-  rect((width * .50) - 1, (height * .7), 2, (height * .3));
-  rect((width * .75) - 1, (height * .7), 2, (height * .3));
+  fill(50);
+  rect((width * .25), height - (height * .15), 2, (height * .3));
+  rect((width * .50), height - (height * .15), 2, (height * .3));
+  rect((width * .75), height - (height * .15), 2, (height * .3));
   
   // enemys
   fill(255, 50, 50);

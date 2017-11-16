@@ -25,7 +25,7 @@ class Player
     this.playerMaxYSpeed = 11;
     this.playerColor = color(255);
     
-    this.gravity = -.25;
+    this.gravity = -.4;
   }
   
   void displayPlayer()
@@ -90,7 +90,7 @@ class Player
     if (isSpacePressed && (!atMaxSpeed) && canJump)
     {
       touchingGround = false;
-      playerYSpeed += 1;
+      playerYSpeed += 1.5;
     }
   } 
   
@@ -98,8 +98,8 @@ class Player
   {
     if (!touchingGround && isSPressed)
     {
-      playerYSpeed = 0;
-      playerYPos = ground.groundYPos - (playerHeight / 2);
+      playerYSpeed = -35;
+      //playerYPos = ground.groundYPos - (playerHeight / 2);
     }
   }
 }
