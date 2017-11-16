@@ -1,7 +1,7 @@
 
 String playerName = "Hark Juun";
 
-Character player1 = new Character(playerName, 0);
+Character player1;
 
 float floatNumber = 0;
 
@@ -13,6 +13,8 @@ void setup()
   textAlign(LEFT, TOP);
   
   noStroke();
+  
+  player1 = new Character(playerName, 0);
 }
 
 void draw()

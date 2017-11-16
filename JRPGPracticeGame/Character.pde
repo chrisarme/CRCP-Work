@@ -33,12 +33,14 @@ class Character
     this.characterCurrentMana = characterMaxMana;
     this.characterType = 0;
     
-    this.characterNameXPos = (width * .06);
+    this.characterNameXPos = (width * .06) + (width / 2 * characterNumber);
     this.characterNameYPos = (height * .70);
     this.characterHealthXPos = (width * .01) + (width / 2 * characterNumber);
     this.characterHealthYPos = (height * .74);
     this.characterManaXPos = (width * .01) + (width / 2 * characterNumber);
     this.characterManaYPos = (height * .78);
+    this.characterPortraitXPos = (width * .18) + (width / 2 * characterNumber);
+    this.characterPortraitYPos = (height * .85);
     
     //ArrayList<Ability> abilities;
   }
@@ -47,16 +49,16 @@ class Character
   {
     // portrait
     fill(100, 80, 100);
-    rect((width * .18), (height * .85), (width * .10), (height * .2225));
+    rect(characterPortraitXPos, characterPortraitYPos, (width * .10), (height * .2225));
     
     fill(0);
-    text("Name: " + characterName, (width * .06), (height * .70));
+    text("Name: " + characterName, characterNameXPos, characterNameYPos);
   
     fill(255, 100, 100);
-    text("Health: " + characterCurrentHealth + "/" + characterMaxHealth, (width * .01), (height * .74));
+    text("Health: " + characterCurrentHealth + "/" + characterMaxHealth, characterHealthXPos, characterHealthYPos);
     
     fill(100, 100, 255);
-    text("Mana:   " + characterCurrentMana + "/" + characterMaxMana, (width * .01), (height * .78));
+    text("Mana:   " + characterCurrentMana + "/" + characterMaxMana, characterManaXPos, characterManaYPos);
     isCharacterTurn();
   }
   
@@ -67,13 +69,8 @@ class Character
       strokeWeight(3);
       stroke(#FFD700);
       fill(0, 0, 0, 0);
-      
-      pushMatrix();
-     
-        rect((width * .06), 100, 100, 50, 18, 18, 18, 18);
-        
-      popMatrix();
-      
+      rect(characterNameXPos + 1, characterNameYPos + 33, 115, 26, 8, 8, 8, 8);
+
       noStroke();
       
     }
