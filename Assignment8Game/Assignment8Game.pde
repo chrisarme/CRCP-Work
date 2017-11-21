@@ -2,8 +2,6 @@
 // Assignment 8
 // Canabalt
 
-//int amountOfObstacles = 2;
-
 Player player;
 Ground ground;
 ArrayList<Obstacles> obstacles = new ArrayList<Obstacles>();
@@ -21,9 +19,11 @@ void setup()
   
   gameController = new GameControl();
   
-  obstacles.add(new Obstacles(0));
-  obstacles.add(new Obstacles(1));
-  obstacles.add(new Obstacles(3));
+  // This is going to be changed!
+  //obstacles.add(new Obstacles(0, 0));
+  //obstacles.add(new Obstacles(1, 0));
+  //obstacles.add(new Obstacles(2, 0));
+  //obstacles.add(new Obstacles(3, 0));
 }
 
 void draw()
@@ -31,22 +31,36 @@ void draw()
   background(100);
   ground.displayGround();
   
-  for (int i = 0; i < obstacles.size(); i++)
+  for (int i = obstacles.size() - 1; i > -1; i--)
   {
-    obstacles.get(i).displayObstacle();
-    if (gameController.createObstacles(obstacles.get(i).isObstacleOffScreen()))
+    println(i);
+    obstacles.get(i).displayObstacle(gameController.timerSinceLastCollision);
+    if (obstacles.get(i).isObstacleOffScreen())
     {
       obstacles.remove(i);
     }
   }
-  if (gameController.createObstacles(false))
+  
+  println(gameController.canObstacleSpawn);
+  if (gameController.canObstacleSpawn)
   {
-    obstacles.add(new Obstacles(0));
+    if (int(random(0, 10000)) >= 9900)
+    {
+      obstacles.add(new Obstacles((gameController.timerSinceLastCollision)));
+      gameController.timerSinceLastObstacleSpawn = 0;
+      gameController.canObstacleSpawn = false;
+    }
   }
   
   player.displayPlayer();
   
-  gameController.checkIfGameOver();
+  gameController.masterGameControls();
+  
+  if (!gameController.canObstacleSpawn)
+  {
+    gameController.updateTimeSinceLastObstaclesSpawn();
+    gameController.checkIfObstacleCanSpawn();
+  }
 }
 
 void keyPressed()

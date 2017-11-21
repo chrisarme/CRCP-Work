@@ -5,23 +5,26 @@ class Obstacles
   float obstacleXSpeed;
   float obstacleHeight;
   float obstacleWidth;
+  float gameTimerSinceCollision;
   color obstacleColor;
   
-  Obstacles(float iNum)
+  Obstacles(float timer)
   {
-    this.obstacleXPos = width + 50 + (500 * iNum);
-    this.obstacleYPos = ground.groundYPos;
-    this.obstacleXSpeed = 5;
     this.obstacleHeight = int(random(100, 200));
     this.obstacleWidth = int(random(50, 100));
+    // This is going to need to be changed!
+    this.obstacleXPos = width + 400;
+    this.obstacleYPos = ground.groundYPos - obstacleHeight;
+    this.obstacleXSpeed = 5 + (.005 * timer);
     this.obstacleColor = color(200);
   }
   
-  void displayObstacle()
+  void displayObstacle(float timer)
   {
+    obstacleXSpeed = 5 + (.0025 * timer);
     pushMatrix();
     
-      translate(obstacleXPos, obstacleYPos - obstacleHeight);
+      translate(obstacleXPos, obstacleYPos);
       fill(obstacleColor);
       rect(0, 0, obstacleWidth, obstacleHeight);
       
@@ -39,9 +42,15 @@ class Obstacles
   void collisionWithPlayer()
   {
     // This giant check is here to see if the player is stuck on the wall, while not activating if the player is above or past the wall
-    if (((player.playerXPos + (player.playerWidth / 2)) >= obstacleXPos) && ((player.playerXPos + (player.playerWidth / 2)) <= obstacleXPos + 10) && ((player.playerYPos + (player.playerHeight / 2)) >= obstacleYPos))
+    if ((player.playerYPos + (player.playerHeight / 2) >= obstacleYPos) && (dist(player.playerXPos, player.playerYPos, obstacleXPos + (obstacleWidth / 2), obstacleYPos) <= player.playerWidth) && (dist(player.playerXPos, player.playerYPos, obstacleXPos + (obstacleWidth / 2), obstacleYPos) <= player.playerHeight))
+    {
+      player.playerYPos = obstacleYPos - (player.playerHeight / 2);
+      player.playerYSpeed = 0;
+    }
+    else if (((player.playerXPos + (player.playerWidth / 2)) >= obstacleXPos) && ((player.playerXPos + (player.playerWidth / 2)) <= obstacleXPos + obstacleWidth) && ((player.playerYPos + (player.playerHeight / 2)) <= obstacleYPos + obstacleHeight) && ((player.playerYPos + (player.playerHeight / 2)) >= obstacleYPos))
     {
       player.playerXPos = obstacleXPos - (player.playerWidth / 2);
+      gameController.timerSinceLastCollision = 0;
     }
   }
   
