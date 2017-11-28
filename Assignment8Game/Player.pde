@@ -5,6 +5,7 @@ class Player
   boolean isSPressed;
   boolean atMaxSpeed;
   boolean canJump;
+  float playerOrigXPos;
   float playerXPos;
   float playerYPos;
   float playerYSpeed;
@@ -14,18 +15,21 @@ class Player
   color playerColor;
   
   float gravity;
+  float timeSincePlayerJumped;
   
   Player()
   {
     this.playerWidth = 50;
     this.playerHeight = 75;
-    this.playerXPos = 200 - (playerWidth / 2);
+    this.playerOrigXPos = 200 - (playerWidth / 2);
+    this.playerXPos = playerOrigXPos;
     this.playerYPos = ground.groundYPos - (playerHeight / 2);
     this.playerYSpeed = 0;
-    this.playerMaxYSpeed = 11;
+    this.playerMaxYSpeed = 10;
     this.playerColor = color(255);
     
-    this.gravity = -.4;
+    this.gravity = -.6;
+    this.timeSincePlayerJumped = 0;
   }
   
   void displayPlayer()
@@ -48,12 +52,21 @@ class Player
   {
     jump();
     playerYPos -= playerYSpeed;
+    
+    if (playerXPos < playerOrigXPos)
+    {
+      playerXPos += .25;
+    }
+    else if (playerXPos > playerOrigXPos)
+    {
+      playerXPos = playerOrigXPos;
+    }
   }
   
   void applyGravity()
   {
     checkIfTouchingGround();
-    if (!touchingGround)
+    if (!touchingGround && ((timeSincePlayerJumped >= 20) || !isSpacePressed))
     {
       playerYSpeed += gravity;
     }
@@ -67,10 +80,12 @@ class Player
       playerYSpeed = 0;
       playerYPos = ground.groundYPos - (playerHeight / 2);
       canJump = true;
+      timeSincePlayerJumped = 0;
     }
     else
     {
       touchingGround = false;
+      timeSincePlayerJumped += 1;
     }
   }
   
@@ -87,6 +102,7 @@ class Player
       atMaxSpeed = false;
     }
     
+    // jump
     if (isSpacePressed && (!atMaxSpeed) && canJump)
     {
       touchingGround = false;
@@ -100,6 +116,18 @@ class Player
     {
       playerYSpeed = -35;
       //playerYPos = ground.groundYPos - (playerHeight / 2);
+    }
+  }
+  
+  boolean isPlayerJumping()
+  {
+    if (isSpacePressed)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
     }
   }
 }

@@ -50,7 +50,7 @@ class Obstacles
     else if (((player.playerXPos + (player.playerWidth / 2)) >= obstacleXPos) && ((player.playerXPos + (player.playerWidth / 2)) <= obstacleXPos + obstacleWidth) && ((player.playerYPos + (player.playerHeight / 2)) <= obstacleYPos + obstacleHeight) && ((player.playerYPos + (player.playerHeight / 2)) >= obstacleYPos))
     {
       player.playerXPos = obstacleXPos - (player.playerWidth / 2);
-      gameController.timerSinceLastCollision = 0;
+      gameController.timerSinceLastCollision -= 100;
     }
   }
   

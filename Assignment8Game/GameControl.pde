@@ -1,5 +1,6 @@
 class GameControl
 {
+  int gameScreen;
   float timerSinceLastCollision;
   float timerSinceLastObstacleSpawn;
   boolean canObstacleSpawn;
@@ -9,6 +10,7 @@ class GameControl
   {
     this.timerSinceLastCollision = 0;
     this.timerSinceLastObstacleSpawn = 0;
+    this.gameScreen = 0;
     this.canObstacleSpawn = true;
     this.isGameOver = false;
   }
@@ -29,7 +31,6 @@ class GameControl
     if (isGameOver)
     {
       textSize(100);
-      textAlign(CENTER);
       
       text("GAME OVER", width / 2, height / 2);
       frameRate(0);
@@ -51,6 +52,10 @@ class GameControl
   void updateTimerCount()
   {
     timerSinceLastCollision += 1;
+    if (timerSinceLastCollision < 0)
+    {
+      timerSinceLastCollision = 0;
+    }
   }
   
   void updateTimeSinceLastObstaclesSpawn()
