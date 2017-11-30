@@ -37,7 +37,7 @@ class StartScreen
     switch(optionSelected)
     {
       case 0:
-        gameController.gameScreen = 1;
+        gameController.restartGame();
         break;
       case 1:
       default:

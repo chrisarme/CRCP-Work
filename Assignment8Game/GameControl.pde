@@ -25,15 +25,8 @@ class GameControl
   {
     if (player.playerXPos + player.playerWidth <= 0)
     {
-      isGameOver = true;
-    }
-    
-    if (isGameOver)
-    {
-      textSize(100);
-      
-      text("GAME OVER", width / 2, height / 2);
-      frameRate(0);
+      //isGameOver = true;
+      gameScreen = 2;
     }
   }
   
@@ -69,5 +62,17 @@ class GameControl
     {
       canObstacleSpawn = true;
     }
+  }
+  
+  void restartGame()
+  {
+    for (int i = obstacles.size() - 1; i > -1; i--)
+    {
+        obstacles.remove(i);
+    }
+    
+    player.playerXPos = player.playerOrigXPos;
+    gameOverScreen.numberOfWipe = 0;
+    gameScreen = 1;
   }
 }

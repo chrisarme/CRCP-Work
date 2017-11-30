@@ -7,6 +7,7 @@ Ground ground;
 ArrayList<Obstacles> obstacles = new ArrayList<Obstacles>();
 GameControl gameController;
 StartScreen startScreen;
+GameOverScreen gameOverScreen;
 
 void setup()
 {
@@ -21,6 +22,8 @@ void setup()
   
   gameController = new GameControl();
   startScreen = new StartScreen();
+  gameOverScreen = new GameOverScreen();
+  
   
 }
 
@@ -62,6 +65,10 @@ void draw()
       gameController.checkIfObstacleCanSpawn();
     }
   }
+  else if (gameController.gameScreen == 2)
+  {
+    gameOverScreen.drawGameOverScreen();
+  }
   else
   {
     startScreen.drawStartScreen();
@@ -89,7 +96,6 @@ void keyPressed()
         startScreen.optionSelected = 1;
       }
       
-      
       break;
     case 1:
       if ((key == ' '))
@@ -105,6 +111,23 @@ void keyPressed()
       if (keyCode == ESC)
       {
         gameController.gameScreen = 0;
+      }
+      
+      break;
+      
+    case 2: 
+      if (key == ' ' || keyCode == ENTER)
+      {
+        gameOverScreen.doAppropriateOption();
+      }
+      
+      if (keyCode == LEFT || key == 'a')
+      {
+        gameOverScreen.optionSelected = 0;
+      }
+      else if (keyCode == RIGHT || key == 'd')
+      {
+        gameOverScreen.optionSelected = 1;
       }
       
       break;
