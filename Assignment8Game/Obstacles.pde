@@ -41,8 +41,8 @@ class Obstacles
   
   void collisionWithPlayer()
   {
-    // This giant check is here to see if the player is stuck on the wall, while not activating if the player is above or past the wall
-    if ((player.playerYPos + (player.playerHeight / 2) >= obstacleYPos) && (dist(player.playerXPos, player.playerYPos, obstacleXPos + (obstacleWidth / 2), obstacleYPos) <= player.playerWidth) && (dist(player.playerXPos, player.playerYPos, obstacleXPos + (obstacleWidth / 2), obstacleYPos) <= player.playerHeight))
+    // These giant check is here to see if the player is stuck on the wall, while while keeping the player above the obstacle of necessary if the player is above the wall
+    if ((player.playerYPos + (player.playerHeight / 2) >= obstacleYPos) && (player.playerXPos >= obstacleXPos) && (dist(player.playerXPos, player.playerYPos, obstacleXPos + (obstacleWidth / 2), obstacleYPos) <= player.playerWidth) && (dist(player.playerXPos, player.playerYPos, obstacleXPos + (obstacleWidth / 2), obstacleYPos) <= player.playerHeight))
     {
       player.playerYPos = obstacleYPos - (player.playerHeight / 2);
       player.playerYSpeed = 0;

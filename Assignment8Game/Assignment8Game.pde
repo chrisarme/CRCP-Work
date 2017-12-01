@@ -2,6 +2,10 @@
 // Assignment 8
 // Canabalt
 
+import ddf.minim.*;
+
+Minim soundPlayer;
+
 Player player;
 Ground ground;
 ArrayList<Obstacles> obstacles = new ArrayList<Obstacles>();
@@ -17,6 +21,9 @@ void setup()
   noStroke();
   background(100);
   size(800, 500);
+  
+  soundPlayer = new Minim(this);
+  
   ground = new Ground();
   player = new Player();
   
