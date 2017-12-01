@@ -1,18 +1,18 @@
 class GameControl
 {
   int gameScreen;
+  float gameScore;
   float timerSinceLastCollision;
   float timerSinceLastObstacleSpawn;
   boolean canObstacleSpawn;
-  boolean isGameOver;
   
   GameControl()
   {
     this.timerSinceLastCollision = 0;
     this.timerSinceLastObstacleSpawn = 0;
     this.gameScreen = 0;
+    this.gameScore = 0;
     this.canObstacleSpawn = true;
-    this.isGameOver = false;
   }
   
   void masterGameControls()
@@ -25,7 +25,6 @@ class GameControl
   {
     if (player.playerXPos + player.playerWidth <= 0)
     {
-      //isGameOver = true;
       gameScreen = 2;
     }
   }
@@ -66,13 +65,24 @@ class GameControl
   
   void restartGame()
   {
+    gameMusic.play(0);
+    gameMusic.setGain(-5);
+    
     for (int i = obstacles.size() - 1; i > -1; i--)
     {
         obstacles.remove(i);
     }
     
+    canObstacleSpawn = true;
+    
     player.playerXPos = player.playerOrigXPos;
     gameOverScreen.numberOfWipe = 0;
+    gameScore = 0;
     gameScreen = 1;
+  }
+  
+  void updateGameScore()
+  {
+    gameScore += .001 + (.0001 * gameController.timerSinceLastCollision);
   }
 }

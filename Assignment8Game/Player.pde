@@ -79,6 +79,12 @@ class Player
       touchingGround = true;
       playerYSpeed = 0;
       playerYPos = ground.groundYPos - (playerHeight / 2);
+      
+      if (timeSincePlayerJumped > 0)
+      {
+        landingSound.play(0);
+      }
+      
       canJump = true;
       timeSincePlayerJumped = 0;
     }
@@ -86,7 +92,7 @@ class Player
     {
       touchingGround = false;
       timeSincePlayerJumped += 1;
-    }
+    }  
   }
   
   void jump()
@@ -114,6 +120,7 @@ class Player
   {
     if (!touchingGround && isSPressed)
     {
+      landingSound.play(20);
       playerYSpeed = -35;
       //playerYPos = ground.groundYPos - (playerHeight / 2);
     }

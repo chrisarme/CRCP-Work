@@ -5,6 +5,11 @@
 import ddf.minim.*;
 
 Minim soundPlayer;
+AudioOutput output;
+AudioPlayer landingSound;
+AudioPlayer gameMusic;
+AudioPlayer menuMusic;
+
 
 Player player;
 Ground ground;
@@ -12,9 +17,11 @@ ArrayList<Obstacles> obstacles = new ArrayList<Obstacles>();
 GameControl gameController;
 StartScreen startScreen;
 GameOverScreen gameOverScreen;
+GameScreen gameplayScreen;
+AboutScreen aboutScreen;
 
 void setup()
-{
+{ 
   smooth();
   textAlign(CENTER);
   frameRate(60);
@@ -23,6 +30,15 @@ void setup()
   size(800, 500);
   
   soundPlayer = new Minim(this);
+  output = soundPlayer.getLineOut();
+  landingSound = soundPlayer.loadFile("SoundEffects/LandingSoundEffect.mp3", 258);
+  gameMusic = soundPlayer.loadFile("SoundEffects/GamePlayMusic.mp3");
+  menuMusic = soundPlayer.loadFile("SoundEffects/MenuMusic.mp3");
+  
+  landingSound.setGain(-10);
+  
+  menuMusic.setGain(-20);
+  menuMusic.play(2000);
   
   ground = new Ground();
   player = new Player();
@@ -30,47 +46,18 @@ void setup()
   gameController = new GameControl();
   startScreen = new StartScreen();
   gameOverScreen = new GameOverScreen();
-  
+  gameplayScreen = new GameScreen();
+  aboutScreen = new AboutScreen();
   
 }
 
 void draw()
 {
+  // gameScreen 0 (default) = menu screen, gameScreen 1 = gameplay screen, gameScreen 2 = game over screen
+  
   if (gameController.gameScreen == 1)
   {
-    background(100);
-    ground.displayGround();
-    
-    for (int i = obstacles.size() - 1; i > -1; i--)
-    {
-      println(i);
-      obstacles.get(i).displayObstacle(gameController.timerSinceLastCollision);
-      if (obstacles.get(i).isObstacleOffScreen())
-      {
-        obstacles.remove(i);
-      }
-    }
-    
-    println(gameController.canObstacleSpawn);
-    if (gameController.canObstacleSpawn)
-    {
-      if (int(random(0, 100)) >= 98)
-      {
-        obstacles.add(new Obstacles((gameController.timerSinceLastCollision)));
-        gameController.timerSinceLastObstacleSpawn = 0;
-        gameController.canObstacleSpawn = false;
-      }
-    }
-    
-    player.displayPlayer();
-    
-    gameController.masterGameControls();
-    
-    if (!gameController.canObstacleSpawn)
-    {
-      gameController.updateTimeSinceLastObstaclesSpawn();
-      gameController.checkIfObstacleCanSpawn();
-    }
+    gameplayScreen.drawGameScreen();
   }
   else if (gameController.gameScreen == 2)
   {
@@ -79,6 +66,11 @@ void draw()
   else
   {
     startScreen.drawStartScreen();
+  }
+  
+  if (aboutScreen.isActive == true || aboutScreen.isOnTheMove == true)
+  {
+    aboutScreen.drawAboutScreen();
   }
 }
 
@@ -89,21 +81,31 @@ void keyPressed()
     // Start screen, or something is terribly wrong
     case 0: 
     default:
-      if (key == ' ' || keyCode == ENTER)
+      if (!aboutScreen.isOnTheMove)
       {
-        startScreen.doAppropriateOption();
-      }
-      
-      if (keyCode == LEFT || key == 'a')
-      {
-        startScreen.optionSelected = 0;
-      }
-      else if (keyCode == RIGHT || key == 'd')
-      {
-        startScreen.optionSelected = 1;
+        if (key == ' ' || keyCode == ENTER)
+        {
+          startScreen.doAppropriateOption();
+        }
+        
+        if (keyCode == LEFT || key == 'a')
+        {
+          if (startScreen.optionSelected > 0)
+          {
+            startScreen.optionSelected -= 1;
+          }
+        }
+        else if (keyCode == RIGHT || key == 'd')
+        {
+          if (startScreen.optionSelected < 2)
+          {
+            startScreen.optionSelected += 1;
+          }
+        }
       }
       
       break;
+    // Actual gameplay screen
     case 1:
       if ((key == ' '))
       {
@@ -121,7 +123,8 @@ void keyPressed()
       }
       
       break;
-      
+
+    // Game over screen :(
     case 2: 
       if (key == ' ' || keyCode == ENTER)
       {
@@ -138,6 +141,13 @@ void keyPressed()
       }
       
       break;
+      
+    case 3: 
+      if (key == ' ' || keyCode == ENTER)
+      {
+        aboutScreen.isActive = false;
+        aboutScreen.isOnTheMove = true;
+      }
   }
 }
 
@@ -148,6 +158,7 @@ void keyReleased()
     // Start screen, or something is terribly wrong
     case 0: 
     default:
+    // do nothing!
       break;
     
     case 1:

@@ -6,17 +6,20 @@ class Obstacles
   float obstacleHeight;
   float obstacleWidth;
   float gameTimerSinceCollision;
-  color obstacleColor;
+  float obstacleColorNumber;
+  float obstacleColor;
   
   Obstacles(float timer)
   {
+    this.obstacleColorNumber = 0;
+    
     this.obstacleHeight = int(random(100, 200));
     this.obstacleWidth = int(random(50, 100));
     // This is going to need to be changed!
     this.obstacleXPos = width + 400;
     this.obstacleYPos = ground.groundYPos - obstacleHeight;
     this.obstacleXSpeed = 5 + (.005 * timer);
-    this.obstacleColor = color(200);
+    this.obstacleColor = random(50, 128);
   }
   
   void displayObstacle(float timer)
@@ -25,13 +28,20 @@ class Obstacles
     pushMatrix();
     
       translate(obstacleXPos, obstacleYPos);
-      fill(obstacleColor);
+      fill((obstacleColor + ((sin((obstacleColorNumber*.8+0)*1.3)*128))) * (gameController.gameScore / 400), (obstacleColor + ((sin((obstacleColorNumber*.8+1)*1.3)*128))) * (gameController.gameScore / 500), (obstacleColor + ((sin((obstacleColorNumber*.8+2)*1.3)*128))) * (gameController.gameScore / 400));
       rect(0, 0, obstacleWidth, obstacleHeight);
       
     popMatrix();
     
     moveObstacle();
     collisionWithPlayer();
+    
+    obstacleColorNumber += .005;
+  
+    if (obstacleColorNumber >= 24)
+    {
+      obstacleColorNumber = 1;
+    }
   }
   
   void moveObstacle()
